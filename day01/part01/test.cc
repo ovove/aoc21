@@ -3,7 +3,6 @@
 
 #include <gtest/gtest.h>
 #include <vector>
-#include <ranges>
 
 TEST(day01part01, test1)
 {
