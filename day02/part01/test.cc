@@ -1,5 +1,5 @@
 
-#include "../data.hh"
+#include "data.hh"
 #include "solver.hh"
 
 #include <gtest/gtest.h>

@@ -1,6 +1,6 @@
 
+#include "data.hh"
 #include "solver.hh"
-#include "../data.hh"
 #include <fmt/format.h>
 
 int main() {

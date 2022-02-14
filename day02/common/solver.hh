@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../data.hh"
+#include "data.hh"
 #include <cassert>
 #include <numeric>
 #include <utility>
