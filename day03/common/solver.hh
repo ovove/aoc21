@@ -36,6 +36,16 @@ void filter_out_based_on_bit_at_pos(std::vector<std::bitset<N>>& data, bool bit_
     data.erase(it, std::end(data));
 }
 
+template <std::size_t N> auto get_ratings(const std::vector<unsigned>& input, auto zeros_vs_ones)
+{
+    auto data{details::make_vector_of_bitsets<N>(input)};
+    for (std::size_t n = 0; (n < N) and (data.size() > 1); ++n) {
+        const auto& [zeros, ones] = details::count_zeros_and_ones<N>(data, N - n - 1);
+        details::filter_out_based_on_bit_at_pos(data, zeros_vs_ones(zeros, ones), N - n - 1);
+    }
+    return data.front().to_ulong();
+}
+
 } // namespace details
 
 template <std::size_t N> auto most_common_bits(const std::vector<unsigned>& input)
@@ -51,20 +61,10 @@ template <std::size_t N> auto most_common_bits(const std::vector<unsigned>& inpu
 
 template <std::size_t N> auto get_o2_ratings(const std::vector<unsigned>& input)
 {
-    auto data{details::make_vector_of_bitsets<N>(input)};
-    for (std::size_t n = 0; (n < N) and (data.size() > 1); ++n) {
-        const auto& [zeros, ones] = details::count_zeros_and_ones<N>(data, N - n - 1);
-        details::filter_out_based_on_bit_at_pos(data, zeros > ones, N - n - 1);
-    }
-    return data.front().to_ulong();
+    return details::get_ratings<N>(input, [](auto z, auto o) { return z > o; });
 }
 
 template <std::size_t N> auto get_co2_ratings(const std::vector<unsigned>& input)
 {
-    auto data{details::make_vector_of_bitsets<N>(input)};
-    for (std::size_t n = 0; (n < N) and (data.size() > 1); ++n) {
-        const auto& [zeros, ones] = details::count_zeros_and_ones<N>(data, N - n - 1);
-        details::filter_out_based_on_bit_at_pos(data, ones >= zeros, N - n - 1);
-    }
-    return data.front().to_ulong();
+    return details::get_ratings<N>(input, [](auto z, auto o) { return z <= o; });
 }
