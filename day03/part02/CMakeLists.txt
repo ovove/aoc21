@@ -1,5 +1,5 @@
 
-set(PART 01)
+set(PART 02)
 
 set(PUZZLE puzzle${DAY}${PART})
 set(TEST test${DAY}${PART})
