@@ -31,14 +31,29 @@ BingoBoard mark_number(BingoBoard board, int number) {
     return board;
 }
 
-std::optional<std::tuple<BingoBoard, int>> play_bingo(std::vector<BingoBoard>& boards,
-                                                      const std::vector<int>& numbers)
+namespace details {
+std::optional<std::tuple<std::vector<BingoBoard>::iterator, std::vector<int>::const_iterator>>
+play_bingo(std::vector<BingoBoard>::iterator first_board,
+           std::vector<BingoBoard>::iterator last_board,
+           const std::vector<int>::const_iterator first_num,
+           const std::vector<int>::const_iterator last_num)
 {
-    for (int num: numbers) {
-        for (BingoBoard& board: boards) {
-            board = mark_number(board, num);
-            if (check_bingo(board)) return std::make_tuple(board, num);
+    for (auto numit = first_num; numit != last_num; ++numit) {
+        for (auto brdit = first_board; brdit != last_board; ++brdit) {
+            *brdit = mark_number(*brdit, *numit);
+            if (check_bingo(*brdit)) return std::make_tuple(brdit, numit);
         }
     }
     return {};
+}
+}
+
+std::optional<std::tuple<BingoBoard, int>> play_bingo(std::vector<BingoBoard>& boards,
+                                                      const std::vector<int>& numbers)
+{
+    auto result = details::play_bingo(std::begin(boards), std::end(boards), std::begin(numbers),
+                                      std::end(numbers));
+    if (not result.has_value()) return {};
+    const auto [brdit, numit] = *result;
+    return std::make_tuple(*brdit, *numit);
 }
