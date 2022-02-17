@@ -9,7 +9,7 @@
 
 using namespace ::testing;
 
-TEST(day03part01, test1)
+TEST(day04part01, test1)
 {
     ASSERT_FALSE(check_bingo({1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13,
                               14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25}));
@@ -37,14 +37,14 @@ TEST(day03part01, test1)
                              14, -1, 16, 17, 18, 19, -1, 21, 22, 23, 24, -1}));
 }
 
-TEST(day03part01, test2)
+TEST(day04part01, test2)
 {
     ASSERT_EQ(calculate_score({-1, -1, -1, -1, -1, 10, 16, 15, -1, 19, 18, 8, -1,
                                26, 20, 22, -1, 13, 6,  -1, -1, -1, 12, 3,  -1}),
               188);
 }
 
-TEST(day03part01, test3)
+TEST(day04part01, test3)
 {
     const BingoBoard board{14, 21, 17, 24, 4,  10, 16, 15, 9, 19, 18, 8, 23,
                            26, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7};
@@ -59,7 +59,7 @@ TEST(day03part01, test3)
                                   -1, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7}));
 }
 
-TEST(day03part01, test4)
+TEST(day04part01, test4)
 {
     std::vector<BingoBoard> boards{{14, 21, 17, 24, 4,  10, 16, 15, 9, 19, 18, 8, 23,
                                     26, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7}};
@@ -74,15 +74,15 @@ TEST(day03part01, test4)
                                              -1, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7}));
     const auto result = play_bingo(boards, {21, 17, 24, 4});
     ASSERT_TRUE(result.has_value());
-    const auto [brd, num] = *result;
+    const auto& [bingos, num] = *result;
     ASSERT_EQ(num, 4);
-    ASSERT_THAT(brd, ElementsAreArray({-1, -1, -1, -1, -1, 10, 16, 15, 9, 19, 18, 8, 23,
-                                       -1, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7}));
-    ASSERT_THAT(boards[0], ElementsAreArray({-1, -1, -1, -1, -1, 10, 16, 15, 9, 19, 18, 8, 23,
+    ASSERT_EQ(bingos.size(), 1);
+    ASSERT_THAT(bingos[0], ElementsAreArray({-1, -1, -1, -1, -1, 10, 16, 15, 9, 19, 18, 8, 23,
                                              -1, 20, 22, 11, 13, 6,  5,  2,  0, 12, 3,  7}));
+    ASSERT_EQ(boards.size(), 0);
 }
 
-TEST(day03part01, test5)
+TEST(day04part01, test5)
 {
     std::vector<BingoBoard> boards{
         {22, 13, 17, 11, 0, 8, 2, 23, 4, 24, 21, 9, 14, 16, 7, 6, 10, 3, 18, 5, 1, 12, 20, 15, 19},
@@ -97,18 +97,20 @@ TEST(day03part01, test5)
     ASSERT_THAT(boards[2], ElementsAreArray({14, 21, 17, 24, -1, 10, 16, 15, -1, 19, 18, 8, 23,
                                              26, 20, 22, -1, 13, 6,  -1, 2,  0,  12, 3,  -1}));
     ASSERT_EQ(play_bingo(boards, {17, 23, 2, 0, 14, 21}), std::nullopt);
-    ASSERT_THAT(boards[0], ElementsAreArray({22, 13, -1, -1, -1, 8,  -1,  -1, -1, 24, -1, -1, -1,
-                                             16, -1, 6,  10, 3, 18, -1, 1,  12, 20, 15, 19}));
-    ASSERT_THAT(boards[1], ElementsAreArray({3,  15, -1,  -1,  22, -1, 18, 13, -1, -1, 19, 8, -1,
+    ASSERT_THAT(boards[0], ElementsAreArray({22, 13, -1, -1, -1, 8,  -1, -1, -1, 24, -1, -1, -1,
+                                             16, -1, 6,  10, 3,  18, -1, 1,  12, 20, 15, 19}));
+    ASSERT_THAT(boards[1], ElementsAreArray({3,  15, -1, -1, 22, -1, 18, 13, -1, -1, 19, 8, -1,
                                              25, -1, 20, -1, 10, 24, -1, -1, -1, 16, 12, 6}));
     ASSERT_THAT(boards[2], ElementsAreArray({-1, -1, -1, 24, -1, 10, 16, 15, -1, 19, 18, 8, -1,
                                              26, 20, 22, -1, 13, 6,  -1, -1, -1, 12, 3,  -1}));
     auto res = play_bingo(boards, {24});
     ASSERT_TRUE(res.has_value());
-    const auto [brd, num] = *res;
+    const auto [bingos, num] = *res;
     ASSERT_EQ(num, 24);
-    ASSERT_THAT(brd, ElementsAreArray({-1, -1, -1, -1, -1, 10, 16, 15, -1, 19, 18, 8, -1,
-                                       26, 20, 22, -1, 13, 6,  -1, -1, -1, 12, 3,  -1}));
-    ASSERT_EQ(calculate_score(brd), 188);
-    ASSERT_EQ(num * calculate_score(brd), 4512);
+    ASSERT_EQ(bingos.size(), 1);
+    ASSERT_EQ(boards.size(), 2);
+    ASSERT_THAT(bingos[0], ElementsAreArray({-1, -1, -1, -1, -1, 10, 16, 15, -1, 19, 18, 8, -1,
+                                             26, 20, 22, -1, 13, 6,  -1, -1, -1, 12, 3,  -1}));
+    ASSERT_EQ(calculate_score(bingos[0]), 188);
+    ASSERT_EQ(num * calculate_score(bingos[0]), 4512);
 }

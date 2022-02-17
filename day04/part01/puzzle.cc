@@ -5,8 +5,8 @@
 
 int main() {
     std::vector<BingoBoard> brds{boards};
-    const auto [brd, num] = *play_bingo(brds, numbers);
-    const auto result = num * calculate_score(brd);
+    const auto [bingos, num] = play_bingo(brds, numbers).value();
+    const auto result = num * calculate_score(bingos[0]);
     fmt::print("{}\n", result);
 }
 
