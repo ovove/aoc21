@@ -2,6 +2,7 @@
 #include "data.hh"
 #include "solver.hh"
 #include <fmt/format.h>
+#include <cassert>
 
 int main() {
     auto brds{boards};
@@ -9,6 +10,7 @@ int main() {
     const auto [brd, num] = res.value();
     const auto result = num * calculate_score(brd);
     fmt::print("{}\n", result);
+    constexpr auto expected = 15561;
+    assert(result == expected);
+    return (result == expected) ? 0 : 1;
 }
-
-// answer: 15561
