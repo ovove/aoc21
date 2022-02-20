@@ -1,7 +1,6 @@
 ---
-Checks:          '*,-fuchsia-*,-google-*,-zircon-*,-abseil-*,-modernize-use-trailing-return-type,-llvm*'
+Checks:          '-*,bugprone-*,clang-analyzer-*.*,cppcoreguidelines-*,misc-*,modernize-*,performance-*,portability-*,readability-*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 FormatStyle:     none
-
-
+...

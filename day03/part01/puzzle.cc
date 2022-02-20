@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main() {
     const auto g = most_common_bits<12>(data);
     const auto e = ~g;

@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main() {
     std::vector<BingoBoard> brds {boards};
     const auto [bingos, num] = play_bingo(brds, numbers).value();

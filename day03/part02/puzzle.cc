@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main() {
     const auto o2 {get_o2_ratings<12>(data)};
     const auto co2 {get_co2_ratings<12>(data)};

@@ -6,6 +6,7 @@
 
 #include <cassert>
 
+// NOLINTNEXTLINE(bugprone-exception-escape)
 int main() {
     auto brds {boards};
     auto res = find_last_winning_bingo(brds, numbers);

@@ -10,6 +10,7 @@ project(aoc21 CXX)
 
 include(cmake/ProjectSettings.cmake)
 include(cmake/RunConan.cmake)
+include(cmake/StaticAnalyzers.cmake)
 
 enable_testing()
 include(GoogleTest)
