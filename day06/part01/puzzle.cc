@@ -7,7 +7,8 @@
 #include <cassert>
 
 int main() {
-    const auto fish = fish_grow_simulation(data, 80);
+    auto fish {data};
+    fish_grow_simulation(fish, 80);
     const auto result = fish.size();
     fmt::print("{}\n", result);
     constexpr auto expected = 356190;
