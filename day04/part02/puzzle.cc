@@ -1,11 +1,13 @@
 
 #include "data.hh"
 #include "solver.hh"
+
 #include <fmt/format.h>
+
 #include <cassert>
 
 int main() {
-    auto brds{boards};
+    auto brds {boards};
     auto res = find_last_winning_bingo(brds, numbers);
     const auto [brd, num] = res.value();
     const auto result = num * calculate_score(brd);

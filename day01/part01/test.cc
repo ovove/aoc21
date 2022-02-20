@@ -2,40 +2,35 @@
 #include "solver.hh"
 
 #include <gtest/gtest.h>
+
 #include <vector>
 
-TEST(day01part01, test1)
-{
-    const std::vector<int> data{};
-    const auto result{nr_of_increasing(data)};
+TEST(day01part01, test1) {
+    const std::vector<int> data {};
+    const auto result {nr_of_increasing(data)};
     ASSERT_EQ(result, 0);
 }
 
-TEST(day01part01, test2)
-{
-    const std::vector<int> data{100};
-    const auto result{nr_of_increasing(data)};
+TEST(day01part01, test2) {
+    const std::vector<int> data {100};
+    const auto result {nr_of_increasing(data)};
     ASSERT_EQ(result, 1);
 }
 
-TEST(day01part01, test3)
-{
-    const std::vector<int> data{100, 101};
-    const auto result{nr_of_increasing(data)};
+TEST(day01part01, test3) {
+    const std::vector<int> data {100, 101};
+    const auto result {nr_of_increasing(data)};
     ASSERT_EQ(result, 1);
 }
 
-TEST(day01part01, test4)
-{
-    const std::vector<int> data{101, 100};
-    const auto result{nr_of_increasing(data)};
+TEST(day01part01, test4) {
+    const std::vector<int> data {101, 100};
+    const auto result {nr_of_increasing(data)};
     ASSERT_EQ(result, 0);
 }
 
-TEST(day01part01, test5)
-{
-    const std::vector data{199, 200, 208, 210, 200, 207, 240, 269, 260, 263};
-    const auto result{nr_of_increasing(data)};
+TEST(day01part01, test5) {
+    const std::vector data {199, 200, 208, 210, 200, 207, 240, 269, 260, 263};
+    const auto result {nr_of_increasing(data)};
     ASSERT_EQ(result, 7);
 }
-
