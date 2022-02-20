@@ -1,0 +1,30 @@
+#pragma once
+
+#include "data.hh"
+
+#include <algorithm>
+#include <unordered_map>
+
+auto make_map(const std::vector<Line>& lines) {
+    std::unordered_map<Coord, unsigned> result{1024};
+    for (const auto& line: lines) {
+        const auto& [c1, c2] = line;
+        const auto& [x1, y1] = c1;
+        const auto& [x2, y2] = c2;
+        if ((x1 != x2) and (y1 != y2)) continue;
+        if ((x1 == x2) and (y1 == y2)) continue;
+        if (x1 != x2) for (auto x = x1; x <= x2; ++x) ++result[{x, y1}];
+        if (x1 != x2) for (auto x = x2; x <= x1; ++x) ++result[{x, y1}];
+        if (y1 != y2) for (auto y = y1; y <= y2; ++y) ++result[{x1, y}];
+        if (y1 != y2) for (auto y = y2; y <= y1; ++y) ++result[{x1, y}];
+    }
+    return result;
+}
+
+auto count_inercepting(const std::unordered_map<Coord, unsigned>& map, unsigned threshold)
+{
+    return std::count_if(std::begin(map), std::end(map), [threshold](const auto& itm) {
+        const auto& [_, cnt] = itm;
+        return cnt >= threshold;
+    });
+}
