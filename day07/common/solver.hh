@@ -14,7 +14,7 @@ unsigned fuel_cost(const std::vector<int>& positions, int target) {
 }
 
 unsigned lowest_fuel_cost(const std::vector<int>& positions) {
-    std::set<int> unique_positions{std::begin(positions), std::end(positions)};
+    std::set<int> unique_positions {std::begin(positions), std::end(positions)};
     std::vector<unsigned> unique_costs(unique_positions.size());
     std::transform(std::begin(unique_positions),
                    std::end(unique_positions),
