@@ -7,7 +7,7 @@
 #include <cassert>
 
 int main() {
-    const auto result {lowest_fuel_cost(data)};
+    const auto result {lowest_fuel_cost_1(data)};
     fmt::print("{}\n", result);
     constexpr auto expected {351901};
     assert(result == expected);
